@@ -4,7 +4,9 @@ import helmet from "helmet";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import { errorMiddleware } from "./middleware/error.middleware.js";
+
 import healthRoutes from "./modules/health/health.route.js";
+import authRoutes from "./modules/auth/auth.route.js";
 
 const app = express();
 
@@ -24,6 +26,7 @@ app.use(
 );
 
 app.use("/api/v1/health", healthRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 app.use(errorMiddleware);
 
