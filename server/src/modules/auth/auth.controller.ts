@@ -29,6 +29,13 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
   const result = await loginUser(payload.email, payload.password);
 
+  res.cookie("accessToken", result.accessToken, {
+    httpOnly: true,
+    secure: false, // true in production with HTTPS
+    sameSite: "strict",
+    maxAge: 15 * 60 * 1000, // 15 minutes
+  });
+
   res.cookie("refreshToken", result.refreshToken, {
     httpOnly: true,
     secure: false,
@@ -62,11 +69,14 @@ export const refreshToken = async (
 
   const result = await refreshUserToken(token);
 
-  res.status(200).json(
-    new ApiResponse("Token refreshed", {
-      accessToken: result.accessToken,
-    }),
-  );
+  res.cookie("accessToken", result.accessToken, {
+    httpOnly: true,
+    secure: false, // true in production
+    sameSite: "strict",
+    maxAge: 15 * 60 * 1000,
+  });
+
+  res.status(200).json(new ApiResponse("Token refreshed"));
 };
 
 export const logout = async (req: Request, res: Response): Promise<void> => {
@@ -76,6 +86,7 @@ export const logout = async (req: Request, res: Response): Promise<void> => {
     await logoutUser(token);
   }
 
+  res.clearCookie("accessToken");
   res.clearCookie("refreshToken");
 
   res.status(200).json(new ApiResponse("Logged out successfully"));

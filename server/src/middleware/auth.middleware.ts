@@ -12,13 +12,11 @@ export const authenticate = (
   res: Response,
   next: NextFunction,
 ) => {
-  const authHeader = req.headers.authorization;
+  const token = req.cookies.accessToken;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    throw new UnauthorizedError();
+  if (!token) {
+    throw new UnauthorizedError("Unauthorized Entry!");
   }
-
-  const token = authHeader.split(" ")[1];
 
   const payload = verifyAccessToken(token);
 

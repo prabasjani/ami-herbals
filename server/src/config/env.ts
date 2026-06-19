@@ -16,6 +16,9 @@ const envSchema = z.object({
   ACCESS_TOKEN_EXPIRES_IN: z.string(),
 
   REFRESH_TOKEN_EXPIRES_IN: z.string(),
+
+  SUPER_ADMIN_EMAIL: z.string(),
+  SUPER_ADMIN_PASSWORD: z.string(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
