@@ -9,6 +9,8 @@ import healthRoutes from "./modules/health/health.route.js";
 import authRoutes from "./modules/auth/auth.route.js";
 import userRoutes from "./modules/user/user.route.js";
 import addressRoutes from "./modules/address/address.route.js";
+import categoryRoutes from "./modules/category/category.route.js";
+import productRoutes from "./modules/product/product.route.js";
 
 const app = express();
 
@@ -31,6 +33,8 @@ app.use("/api/v1/health", healthRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/addresses", addressRoutes);
+app.use("/api/v1/categories", categoryRoutes);
+app.use("/api/v1/products", productRoutes);
 
 app.use(errorMiddleware);
 

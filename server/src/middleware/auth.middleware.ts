@@ -36,7 +36,7 @@ export const authorize =
     }
 
     if (!roles.includes(req.user.role)) {
-      return next(new ForbiddenError());
+      return next(new ForbiddenError("Access Denied!"));
     }
 
     next();
