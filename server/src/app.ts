@@ -11,6 +11,7 @@ import userRoutes from "./modules/user/user.route.js";
 import addressRoutes from "./modules/address/address.route.js";
 import categoryRoutes from "./modules/category/category.route.js";
 import productRoutes from "./modules/product/product.route.js";
+import cartRoutes from "./modules/cart/cart.route.js";
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/addresses", addressRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/cart", cartRoutes);
 
 app.use(errorMiddleware);
 
