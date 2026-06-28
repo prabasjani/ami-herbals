@@ -11,11 +11,14 @@ import { ProductStatus } from "../product/product.types.js";
 import { Cart } from "./cart.model.js";
 
 import type { AddItemInput, UpdateQuantityInput } from "./cart.validation.js";
+import { Coupon } from "../coupon/coupon.model.js";
+import { CouponType } from "../coupon/coupon.types.js";
+
 
 // const populateCart = () =>
 //   Cart.findOne().populate("items.product", "name slug images mrp price stock");
 
-const calculateCart = (cart: any) => {
+export const calculateCart = async (cart: any) => {
   let mrpTotal = 0;
   let subtotal = 0;
   let totalItems = 0;
@@ -32,7 +35,36 @@ const calculateCart = (cart: any) => {
 
   const productSavings = mrpTotal - subtotal;
 
-  const couponDiscount = 0;
+  let couponDiscount = 0;
+
+  if (cart.coupon) {
+    const coupon = await Coupon.findById(cart.coupon);
+
+    if (coupon) {
+      switch (coupon.type) {
+        case CouponType.PERCENTAGE:
+          couponDiscount = (subtotal * coupon.discountValue) / 100;
+
+          if (
+            coupon.maximumDiscount &&
+            couponDiscount > coupon.maximumDiscount
+          ) {
+            couponDiscount = coupon.maximumDiscount;
+          }
+
+          break;
+
+        case CouponType.FLAT:
+          couponDiscount = Math.min(coupon.discountValue, subtotal);
+
+          break;
+
+        case CouponType.FREE_SHIPPING:
+          couponDiscount = 0;
+          break;
+      }
+    }
+  }
 
   const deliveryCharge = 0;
 
