@@ -59,6 +59,12 @@ const productSchema = new Schema<IProduct>(
       min: 0,
     },
 
+    sold: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
     category: {
       type: Schema.Types.ObjectId,
       ref: "Category",

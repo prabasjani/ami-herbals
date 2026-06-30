@@ -16,6 +16,8 @@ export interface IProduct extends Document {
 
   stock: number;
 
+  sold: number;
+
   category: Types.ObjectId;
 
   images: string[];

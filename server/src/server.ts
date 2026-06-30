@@ -13,7 +13,7 @@ const bootstrap = async () => {
   await connectDatabase();
   await seedSuperAdmin();
 
-  await connectRedis();
+  // await connectRedis();
 
   app.listen(env.PORT, () => {
     console.log(`Server running on port ${env.PORT}`);

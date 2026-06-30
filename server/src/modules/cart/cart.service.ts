@@ -13,7 +13,7 @@ import { Cart } from "./cart.model.js";
 import type { AddItemInput, UpdateQuantityInput } from "./cart.validation.js";
 import { Coupon } from "../coupon/coupon.model.js";
 import { CouponType } from "../coupon/coupon.types.js";
-
+import { calculateDelivery } from "../delivery/delivery.service.js";
 
 // const populateCart = () =>
 //   Cart.findOne().populate("items.product", "name slug images mrp price stock");
@@ -66,9 +66,9 @@ export const calculateCart = async (cart: any) => {
     }
   }
 
-  const deliveryCharge = 0;
-
-  const deliverySavings = 0;
+  const { deliveryCharge, deliverySavings } = await calculateDelivery(
+    subtotal - couponDiscount,
+  );
 
   const totalSavings = productSavings + couponDiscount + deliverySavings;
 

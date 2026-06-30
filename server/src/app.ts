@@ -13,6 +13,9 @@ import categoryRoutes from "./modules/category/category.route.js";
 import productRoutes from "./modules/product/product.route.js";
 import cartRoutes from "./modules/cart/cart.route.js";
 import couponRoutes from "./modules/coupon/coupon.route.js";
+import deliveryRouter from "./modules/delivery/delivery.route.js";
+import checkoutRouter from "./modules/checkout/checkout.route.js";
+import orderRouter from "./modules/order/order.route.js";
 
 const app = express();
 
@@ -39,6 +42,9 @@ app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/cart", cartRoutes);
 app.use("/api/v1/coupons", couponRoutes);
+app.use("/api/v1/delivery", deliveryRouter);
+app.use("/api/v1/checkout", checkoutRouter);
+app.use("/api/v1/orders", orderRouter);
 
 app.use(errorMiddleware);
 

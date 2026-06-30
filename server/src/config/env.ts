@@ -19,6 +19,8 @@ const envSchema = z.object({
 
   SUPER_ADMIN_EMAIL: z.string(),
   SUPER_ADMIN_PASSWORD: z.string(),
+
+  ORDER_PREFIX: z.string(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
